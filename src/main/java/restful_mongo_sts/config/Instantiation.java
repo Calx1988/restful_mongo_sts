@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import restful_mongo_sts.domain.Post;
 import restful_mongo_sts.domain.User;
 import restful_mongo_sts.dto.AuthorDTO;
+import restful_mongo_sts.dto.CommentDTO;
 import restful_mongo_sts.repositories.PostRepository;
 import restful_mongo_sts.repositories.UserRepository;
 
@@ -46,6 +47,18 @@ public class Instantiation implements CommandLineRunner{
 		userRepository.save(o1);
 		o3.getPosts().addAll(Arrays.asList(post1, post2));
 		userRepository.save(o3);
+		
+		CommentDTO comment1 = new CommentDTO("Legal! Que dia irá?", sdf.parse("03/05/2012"), new AuthorDTO(o2));
+		CommentDTO comment2 = new CommentDTO("Sim, morrendo aqui!", sdf.parse("07/05/2022"), new AuthorDTO(o2));
+		CommentDTO comment3 = new CommentDTO("Preciso de uma piscina", sdf.parse("07/05/2022"), new AuthorDTO(o1));
+		CommentDTO comment4 = new CommentDTO("Uhu! Aproveita!", sdf.parse("10/05/2022"), new AuthorDTO(o3));
+
+		post1.getComments().add(comment4);
+		post2.getComments().add(comment1);
+		post3.getComments().add(comment2);
+		post3.getComments().add(comment3);
+		
+		postReposiroty.saveAll(Arrays.asList(post1, post2, post3));
 				
 	}
 
