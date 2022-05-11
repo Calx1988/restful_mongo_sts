@@ -1,5 +1,6 @@
 package restful_mongo_sts.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class PostService {
 		Optional<Post> post = repository.findById(id);
 		
 			return post.orElseThrow(() -> new ObjNotFoundException("There's no user with this ID."));
+	}
+	
+	public List<Post> findByTitle(String text) {
+		return repository.findByTitleContainingIgnoreCase(text);
 	}
 }
